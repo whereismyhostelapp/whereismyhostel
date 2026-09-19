@@ -1,1 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where Is My Hostel</title>
 
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f5f7fb;
+  color:#222;
+}
+
+header{
+  background:#fff;
+  padding:15px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 2px 8px #ddd;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.logo{
+  font-size:21px;
+  font-weight:bold;
+  color:#1769aa;
+}
+
+.menu{
+  font-size:28px;
+  cursor:pointer;
+}
+
+.hero{
+  padding:45px 20px;
+  text-align:center;
+  background:linear-gradient(135deg,#1769aa,#43a047);
+  color:white;
+}
+
+.hero h1{
+  font-size:32px;
+  margin-bottom:12px;
+}
+
+.hero p{
+  margin-bottom:25px;
+}
+
+.search{
+  max-width:650px;
+  margin:auto;
+  display:flex;
+  background:white;
+  padding:6px;
+  border-radius:10px;
+}
+
+.search input{
+  flex:1;
+  border:0;
+  outline:0;
+  padding:14px;
+  font-size:16px;
+}
+
+.search button{
+  border:0;
+  background:#1769aa;
+  color:white;
+  padding:0 22px;
+  border-radius:7px;
+  cursor:pointer;
+}
+
+.container{
+  max-width:1100px;
+  margin:30px auto;
+  padding:0 20px;
+}
+
+.section-title{
+  margin-bottom:18px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 3px 12px #ddd;
+}
+
+.card-img{
+  height:150px;
+  background:#dfe7ef;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:50px;
+}
+
+.card-content{
+  padding:18px;
+}
+
+.card h3{
+  margin-bottom:8px;
+}
+
+.card p{
+  color:#666;
+  margin-bottom:12px;
+}
+
+.card button{
+  width:100%;
+  padding:11px;
+  border:0;
+  border-radius:7px;
+  background:#1769aa;
+  color:white;
+  cursor:pointer;
+}
+
+.side-menu{
+  position:fixed;
+  top:0;
+  right:-300px;
+  width:280px;
+  height:100%;
+  background:white;
+  z-index:20;
+  padding:25px;
+  box-shadow:-3px 0 12px #aaa;
+  transition:.3s;
+}
+
+.side-menu.open{
+  right:0;
+}
+
+.side-menu h2{
+  margin-bottom:25px;
+}
+
+.side-menu button{
+  width:100%;
+  padding:13px;
+  margin:7px 0;
+  border:0;
+  border-radius:7px;
+  background:#f0f3f7;
+  text-align:left;
+  cursor:pointer;
+}
+
+.close{
+  float:right;
+  font-size:25px;
+  cursor:pointer;
+}
+
+footer{
+  margin-top:50px;
+  padding:25px;
+  text-align:center;
+  background:#17202a;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🏠 Where Is My Hostel</div>
+  <div class="menu" onclick="openMenu()">☰</div>
+</header>
+
+<section class="hero">
+  <h1>Find Your Perfect Hostel</h1>
+  <p>Search hostels, rooms and accommodation near you.</p>
+
+  <div class="search">
+    <input id="searchInput" type="text"
+           placeholder="Enter city or hostel name">
+    <button onclick="searchHostel()">Search</button>
+  </div>
+</section>
+
+<div class="container">
+
+  <h2 class="section-title">Popular Hostels</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-img">🏠</div>
+      <div class="card-content">
+        <h3>Student Hostel</h3>
+        <p>📍 Patna, Bihar</p>
+        <button onclick="viewHostel('Student Hostel')">
+          View Hostel
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img">🏢</div>
+      <div class="card-content">
+        <h3>City Boys Hostel</h3>
+        <p>📍 Chapra, Bihar</p>
+        <button onclick="viewHostel('City Boys Hostel')">
+          View Hostel
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img">🏡</div>
+      <div class="card-content">
+        <h3>Green Stay Hostel</h3>
+        <p>📍 Delhi</p>
+        <button onclick="viewHostel('Green Stay Hostel')">
+          View Hostel
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="sideMenu" class="side-menu">
+
+  <span class="close" onclick="closeMenu()">×</span>
+
+  <h2>Hostel Admin</h2>
+
+  <button onclick="listHostel()">➕ List Your Hostel</button>
+  <button onclick="myHostel()">🏢 My Hostel</button>
+  <button onclick="dashboard()">📊 Dashboard</button>
+  <button onclick="login()">👤 Login / Signup</button>
+
+</div>
+
+<footer>
+  © 2026 Where Is My Hostel
+</footer>
+
+<script>
+
+function openMenu(){
+  document.getElementById("sideMenu").classList.add("open");
+}
+
+function closeMenu(){
+  document.getElementById("sideMenu").classList.remove("open");
+}
+
+function searchHostel(){
+  let value=document.getElementById("searchInput").value;
+
+  if(value.trim()===""){
+    alert("Please enter a city or hostel name.");
+  }else{
+    alert("Searching hostels for: "+value);
+  }
+}
+
+function viewHostel(name){
+  alert("Opening "+name);
+}
+
+function listHostel(){
+  alert("Hostel registration page will open here.");
+}
+
+function myHostel(){
+  alert("My Hostel dashboard will open here.");
+}
+
+function dashboard(){
+  alert("Hostel Admin Dashboard will open here.");
+}
+
+function login(){
+  alert("Login / Signup page will open here.");
+}
+
+</script>
+
+</body>
+</html>
